@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from './product.class';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,9 @@ export class ProductsService {
     constructor(private http: HttpClient) { }
 
     getProducts(): Observable<Product[]> {
-        if( ! ProductsService.productslist )
+        if ( ! ProductsService.productslist )
         {
-            this.http.get<any>('http://127.0.0.1:34799/products').subscribe(data => {
+            this.http.get<any>(environment.api + '/products').subscribe(data => {
                 ProductsService.productslist = data;
 
                 this.products$.next(ProductsService.productslist);

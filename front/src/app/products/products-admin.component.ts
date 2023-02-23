@@ -4,9 +4,8 @@ import {PRODUCT_TABLE_CONF} from './products-admin-table.conf';
 import { ProductsService } from './products.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-
+import { environment } from '../../environment/environment';
 import { BaseTableLoader } from 'app/shared/ui/table/base-table-loader.class';
-
 import { CrudItemOptions } from 'app/shared/utils/crud-item-options/crud-item-options.model';
 
 @Component({
@@ -30,33 +29,34 @@ export class ProductsAdminComponent extends BaseTableLoader implements OnInit {
   ngOnInit(): void {
 
     // Display data table
-    this.productsService.getProducts().subscribe(products => 
-    {
-      this.payload$.next({products: products, total: products.length})
+    this.http.get<any>(environment.api + '/products').subscribe(products => {
+      this.payload$.next({products, total: products.length});
     });
-
   }
 
   public onDeleteProduct(ids: number[]): void {
     this.delete(ids[0]);
+    this.ngOnInit();
   }
 
   public onSave(product: Product): void {
     product.id ? this.update(product) : this.create(product);
+    this.ngOnInit();
   }
 
   private create(product: Product): void {
-    this.http.post<any>('http://127.0.0.1:34799/products', product).subscribe();
-    this.handleReload(this.productsService.create(product));
+    this.http.post<any>(environment.api + '/products', product).subscribe();
+    this.ngOnInit();
   }
 
   private update(product: Product): void {
-    this.http.patch<any>('http://127.0.0.1:34799/products/' + product.id, product).subscribe( );
-    this.handleReload(this.productsService.update(product));
+    this.http.patch<any>(environment.api + '/products/' + product.id, product).subscribe(
+    );
+    this.ngOnInit();
   }
 
   private delete(id: number): void {
-    this.http.delete<any>('http://127.0.0.1:34799/products/' + id).subscribe( );
-    this.handleReload(this.productsService.delete(id));
+    this.http.delete<any>(environment.api + '/products/' + id).subscribe( );
+    this.ngOnInit();
   }
 }

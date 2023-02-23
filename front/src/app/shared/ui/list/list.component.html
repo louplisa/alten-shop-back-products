@@ -60,7 +60,7 @@
   </ng-template>
   <!-- Grid item template -->
   <ng-template let-item let-i="rowIndex" pTemplate="gridItem">
-    <div class="grid-item-container">
+    <div class="grid-item-container" (click)="goToProduct(item)">
       <div class="grid-item">
         <ng-container [ngTemplateOutlet]="gridItemTemplate" [ngTemplateOutletContext]="{$implicit: item, index: i, display: 'grid'}"></ng-container>
       </div>

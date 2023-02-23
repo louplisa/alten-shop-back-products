@@ -5,6 +5,8 @@ import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 import { debounceTime } from 'rxjs/operators';
 import { ListService } from './list.service';
+import { Router } from '@angular/router';
+import { Product } from '../../../products/product.class';
 
 export interface ListHeaderOptionsBase {
   search: string;
@@ -57,12 +59,13 @@ export class ListComponent<T> implements OnInit {
   public searchCtrl: FormControl = new FormControl('');
   public dateRangeCtrl: FormControl = new FormControl([new Date(), new Date()]);
   public selection: (T&{id})[] = [];
-
+  public display = false;
   private firstLoad = true;
 
   constructor(
     private readonly primengConfig: PrimeNGConfig,
-    private readonly listService: ListService
+    private readonly listService: ListService,
+    private router: Router,
   ) {
 
   }
@@ -149,5 +152,9 @@ export class ListComponent<T> implements OnInit {
 
   private emitFilters(): void {
     this.filtered.emit(this.searchParams);
+  }
+
+  goToProduct(product: Product) {
+    this.router.navigate(['/products', product.id]);
   }
 }

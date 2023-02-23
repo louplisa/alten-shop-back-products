@@ -1,0 +1,65 @@
+<div *ngIf="product" class="row">
+    <div class="col s12 m8 offset-m2">
+        <div class="card horizontal hoverable">
+            <div class="card-stacked">
+                <h2 class="header center" style="align-content: center; margin-top: 3rem">{{ product.name }}</h2>
+                <div class="card-image">
+                    <img *ngIf="product.image" [src]="product.image">
+                </div>
+                <div>
+                    <table class="header center" style="margin-top: 3rem; width: 100%">
+                        <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td><strong>{{ product.id }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Code</td>
+                            <td><strong>{{ product.code }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td><strong>{{ product.name }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><strong>{{ product.description }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td><strong>{{ product.category }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Inventory status</td>
+                            <td><strong>{{ product.inventoryStatus }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td><strong>{{ product.price }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td><strong>{{ product.quantity }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Rating</td>
+                            <td><strong>{{ product.rating }}</strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 3rem">
+                    <button pButton
+                            pRipple
+                            icon="pi pi-sign-out"
+                            class="h-45 p-button-danger"
+                            (click)="goToProductList()"
+                            style="margin: 0 5px;">
+                        Exit
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
