@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  # Pour le développement en local uniquement
+  mariadb:
+    container_name: mariadb_shop
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    image: mariadb:10.6.4
+    ports:
+      - 3406:3306
+    restart: unless-stopped
+    volumes:
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Pour le développement en local uniquement
+  adminer:
+    container_name: adminer_shop
+    environment:
+      ADMINER_DESIGN: nette
+      ADMINER_PLUGINS: tables-filter dump-bz2 dump-date dump-json dump-zip
+    image: adminer:latest
+    links:
+      - mariadb
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+
